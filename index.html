@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>КОМИТ — Автоматизация которая работает</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER / NAV ===== -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="#" class="header__logo">
+        <img src="ЛОГО1.png" alt="КОМИТ лого" class="header__logo-icon">
+        <span class="header__logo-text">КОМИТ</span>
+      </a>
+      <nav class="header__nav" id="nav">
+        <a href="#services" class="header__link">услуги</a>
+        <a href="#process" class="header__link">процесс</a>
+        <a href="#about" class="header__link">о нас</a>
+        <a href="#contact" class="header__link">контакты</a>
+      </nav>
+      <a href="#contact" class="header__cta">СВЯЗАТЬСЯ</a>
+      <button class="header__burger" id="burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="header__separator"></div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__content">
+        <h1 class="hero__title">АВТОМАТИЗАЦИЯ<br>КОТОРАЯ<br>РАБОТАЕТ</h1>
+        <p class="hero__subtitle">Проектируем и внедряем цифровые экосистемы для бизнеса.<br>Исключаем человеческий
+          фактор через архитектурную точность кода.</p>
+        <div class="hero__cta">
+          <span class="hero__line"></span>
+          <a href="#contact" class="hero__link">оставить заявку</a>
+        </div>
+      </div>
+      <div class="hero__shape">
+        <!-- Large orange circle with white K cutout -->
+        <svg viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="500" cy="500" r="500" fill="#FF6A00"></circle>
+          <!-- K vertical stem -->
+          <line y1="0" y2="1000" stroke="#F5F5F5" stroke-width="180" x1="200" x2="200"></line>
+          <!-- K lower diagonal arm -->
+          <line x1="420" y1="540" y2="900" stroke="#F5F5F5" stroke-width="180" stroke-linecap="square" x2="800"></line>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="services" id="services">
+    <div class="services__inner">
+      <span class="section-label section-label--no-animate">01 - услуги</span>
+      <div class="services__grid">
+        <div class="services__cell services__cell--wide-top">
+          <h3>Автоматизация процессов</h3>
+        </div>
+        <div class="services__cell services__cell--narrow-top">
+          <h3>Документооборот</h3>
+        </div>
+        <div class="services__cell services__cell--narrow-bottom">
+          <h3>Интеграции</h3>
+        </div>
+        <div class="services__cell services__cell--wide-bottom">
+          <h3>Индивидуальная разработка</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MISSION ===== -->
+  <section class="mission">
+    <div class="mission__inner">
+      <div class="mission__left">
+        <h2 class="mission__title">
+          <span class="mission__title--white">МЫ<br>НЕ ДЕЛАЕМ ПРОСТО РЕШЕНИЯ.</span>
+        </h2>
+      </div>
+      <div class="mission__right">
+        <p class="mission__text">В мире, перенасыщенном однотипным софтом, мы выбираем путь архитектурной строгости.
+          Каждый наш проект — это цифровой объект, рассчитанный на стабильную работу и масштабирование на годы вперёд.
+        </p>
+        <div class="mission__divider"></div>
+        <h2 class="mission__title--orange">МЫ ПРОЕКТИРУЕМ СИСТЕМЫ.</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="process" id="process">
+    <div class="process__inner">
+      <span class="section-label">02 - процесс</span>
+      <div class="process__steps">
+        <div class="process__line-container" aria-hidden="true">
+          <div class="process__step-dot"></div>
+        </div>
+        <article class="process__step process__step--active">
+          <h4 class="process__step-title">АНАЛИЗ</h4>
+          <p class="process__step-text">Глубокое погружение<br>в бизнес-логику<br>и выявление узких мест<br>в текущей
+            архитектуре.</p>
+        </article>
+        <article class="process__step">
+          <h4 class="process__step-title">АРХИТЕКТУРА</h4>
+          <p class="process__step-text">Создание детального<br>чертежа системы.<br>Определение стека и<br>протоколов
+            обмена.</p>
+        </article>
+        <article class="process__step">
+          <h4 class="process__step-title">РАЗРАБОТКА</h4>
+          <p class="process__step-text">Написание чистого,<br>тестируемого кода.<br>Интерактивная
+            сборка<br>функциональных<br>модулей.</p>
+        </article>
+        <article class="process__step">
+          <h4 class="process__step-title">ВНЕДРЕНИЕ</h4>
+          <p class="process__step-text">Бесшовный запуск<br>в эксплуатацию,<br>обучение персонала<br>и технический надзор.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about" id="about">
+    <div class="about__inner">
+      <div class="about__content">
+        <span class="section-label">03 - о нас</span>
+        <p class="about__text">Комит — молодая IT-компания, которая экономит ваше время за счёт автоматизации рутинных
+          процессов. Мы создаём индивидуальные цифровые решения под задачи вашего бизнеса, упрощая операционную работу и
+          повышая эффективность.</p>
+        <ul class="about__stats">
+          <li><span class="about__stat-number">15+</span> Проектов</li>
+          <li><span class="about__stat-number">6</span> Лет опыта</li>
+          <li><span class="about__stat-number">100%</span> Фокус на результат</li>
+          <li><span class="about__stat-number">24/7</span> Поддержка</li>
+        </ul>
+      </div>
+      <div class="about__shape">
+        <svg viewBox="0 0 487 812" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect class="about__shape-stem" width="99.8283" height="812" fill="#1C1C1E" />
+          <line class="about__shape-diagonal" x1="152" y1="465" x2="409" y2="904" stroke="#1C1C1E" stroke-width="110" stroke-linecap="square"></line>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact__left">
+        <h2 class="contact__title">ОБСУДИМ<br>ВАШ<br>ПРОЕКТ</h2>
+        <p class="contact__subtitle">Оставьте заявку, и наши ведущие специалисты свяжутся с вами для проведения
+          первичного анализа.</p>
+      </div>
+      <div class="contact__form">
+        <div class="contact__field">
+          <span class="contact__label">ВАШЕ ИМЯ</span>
+          <div class="contact__line"></div>
+        </div>
+        <div class="contact__field">
+          <span class="contact__label">НОМЕР ТЕЛЕФОНА</span>
+          <div class="contact__line"></div>
+        </div>
+        <p class="contact__disclaimer">нажимая кнопку "оставить заявку", вы соглашаетесь<br>с политикой
+          конфиденциальности</p>
+        <button type="submit" class="contact__submit">оставить заявку</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__left">
+        <h3 class="footer__logo">КОМИТ</h3>
+        <p>ИП МИНГАЗОВА РИММА МАРАТОВНА</p>
+        <p>ИНН 165004408714</p>
+      </div>
+      <div class="footer__right">
+        <h4 class="footer__heading">КОНТАКТЫ</h4>
+        <a href="#">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+        <a href="#">ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 КОМИТ. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
