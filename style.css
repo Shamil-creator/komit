@@ -152,8 +152,8 @@ img {
   background: var(--bg-light);
   overflow: hidden;
   position: relative;
-  padding-top: 150px;
-  margin-bottom: 40px;
+  padding-top: 110px;
+  margin-bottom: 58px;
 }
 
 .hero__inner {
@@ -217,7 +217,7 @@ img {
 
 .hero__shape {
   position: absolute;
-  right: -120px;
+  right: -250px;
   top: 50%;
   transform: translateY(-50%);
   width: 550px;
@@ -384,16 +384,17 @@ img {
   background: var(--bg-light);
   overflow-x: visible;
   position: relative;
+  margin-bottom: 25px;
 }
 
 /* Orange circle — lives in process so about can keep overflow:hidden for the rect */
 .process::after {
   content: '';
   position: absolute;
-  right: calc(50% - var(--max-width) / 2 + var(--side-padding) - 180px);
-  bottom: -130px;
-  width: 260px;
-  height: 260px;
+  right: calc(50% - var(--max-width) / 2 + var(--side-padding) - 300px);
+  bottom: -270px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
   background: var(--orange);
   z-index: 0;
@@ -412,26 +413,32 @@ img {
 }
 
 .process__steps {
-  --process-track-top: 98px;
+  --process-track-top: 106px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0;
+  width: calc(100vw - (var(--side-padding) * 2));
+  margin-left: calc(50% - 50vw + var(--side-padding));
   padding-top: 40px;
   padding-bottom: 200px;
   position: relative;
 }
 
 .process__step {
-  padding-right: 24px;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  padding: 0 30px;
+  text-align: center;
 }
 
 .process__step-title {
   display: inline-block;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 600;
   color: var(--text-dark);
   line-height: 1.05;
-  margin-bottom: 56px;
+  margin-bottom: 54px;
   transition: color 0.28s ease, text-shadow 0.28s ease, opacity 0.28s ease;
 }
 
@@ -442,12 +449,23 @@ img {
 
 .process__line-container {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
   top: var(--process-track-top);
   height: 1px;
-  background: var(--orange);
+  background: rgba(28, 28, 30, 0.2);
   pointer-events: none;
+}
+
+.process__line-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: var(--orange);
+  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .process__step-dot {
@@ -470,9 +488,12 @@ img {
 }
 
 .process__step-text {
-  font-size: 16px;
+  max-width: 290px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 17px;
   font-weight: 300;
-  line-height: 25px;
+  line-height: 30px;
   color: var(--black);
 }
 
@@ -498,7 +519,7 @@ img {
 .about__inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 72px var(--side-padding) 120px;
+  padding: 40px var(--side-padding) 120px;
   display: flex;
   align-items: flex-start;
   position: relative;
@@ -555,7 +576,7 @@ img {
 
 .about__shape {
   position: absolute;
-  right: -40px;
+  right: 24px;
   top: -100px;
   width: 480px;
   z-index: 1;
@@ -587,42 +608,54 @@ img {
 .contact__inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 92px var(--side-padding) 80px;
-  display: flex;
-  gap: 80px;
+  padding: 88px var(--side-padding) 96px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(360px, 430px);
+  column-gap: 92px;
   align-items: flex-start;
 }
 
 .contact__left {
-  flex: 1;
+  max-width: 470px;
+  margin-left: 50px;
 }
 
 .contact__title {
-  font-size: 72px;
+  font-size: 80px;
   font-weight: 900;
-  line-height: 86px;
-  letter-spacing: 0;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
   color: var(--white);
-  margin-bottom: 48px;
+  margin-bottom: 42px;
 }
 
 .contact__subtitle {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
-  line-height: 30px;
-  color: var(--text-light);
-  max-width: 407px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 360px;
 }
 
 .contact__form {
-  flex: 1;
-  max-width: 400px;
-  padding-top: 40px;
+  width: 100%;
+  max-width: 430px;
+  padding-top: 64px;
+  margin-right: 100px;
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .contact__field {
   display: block;
-  margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 52px;
+}
+
+.contact__field:last-of-type {
+  margin-bottom: 10px;
 }
 
 .contact__label {
@@ -637,20 +670,21 @@ img {
 
 .contact__input {
   width: 100%;
-  padding: 0 0 14px;
+  padding: 0 0 12px;
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.58);
   background: transparent;
   color: var(--white);
   font-family: var(--font);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
-  line-height: 1.4;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .contact__input::placeholder {
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.34);
 }
 
 .contact__input:focus {
@@ -665,21 +699,27 @@ img {
 }
 
 .contact__disclaimer {
-  margin-top: 8px;
-  font-size: 13px;
-  font-weight: 100;
-  color: rgba(255, 255, 255, 0.4);
-  line-height: 1.4;
+  margin-top: 0;
   margin-bottom: 24px;
+  max-width: 320px;
+  font-size: 12px;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.28);
+  line-height: 1.25;
 }
 
 .contact__message {
-  min-height: 20px;
-  margin-bottom: 20px;
-  font-size: 14px;
+  display: none;
+  min-height: 0;
+  margin-bottom: 18px;
+  font-size: 13px;
   font-weight: 300;
-  line-height: 1.4;
+  line-height: 1.35;
   color: rgba(255, 255, 255, 0.75);
+}
+
+.contact__message:not(:empty) {
+  display: block;
 }
 
 .contact__message--error {
@@ -692,13 +732,16 @@ img {
 
 .contact__submit {
   display: inline-block;
-  padding: 15px 40px;
+  min-width: 262px;
+  height: 58px;
+  padding: 0 32px;
   background: var(--orange);
   color: var(--white);
   font-family: var(--font);
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 19px;
+  font-weight: 500;
   text-transform: uppercase;
+  letter-spacing: 0.01em;
   border: none;
   cursor: pointer;
   transition: opacity 0.3s;
@@ -892,6 +935,8 @@ img {
   .process__steps {
     grid-template-columns: repeat(2, 1fr);
     gap: 40px 24px;
+    width: auto;
+    margin-left: 0;
     padding-top: 0;
     padding-bottom: 48px;
   }
@@ -919,13 +964,14 @@ img {
   }
 
   .contact__inner {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 48px;
   }
 
   .contact__form {
     max-width: 100%;
     padding-top: 0;
+    justify-self: start;
   }
 
   .contact__title {
@@ -1285,6 +1331,7 @@ img {
 
   .contact__form {
     width: 100%;
+    justify-self: stretch;
   }
 
   .contact__field {

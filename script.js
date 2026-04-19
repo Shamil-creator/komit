@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const processItems = processSteps ? Array.from(processSteps.querySelectorAll('.process__step')) : [];
   const processDot = processSteps ? processSteps.querySelector('.process__step-dot') : null;
   const processLine = processSteps ? processSteps.querySelector('.process__line-container') : null;
+  const processProgress = processSteps ? processSteps.querySelector('.process__line-progress') : null;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const processDesktop = window.matchMedia('(min-width: 1025px)');
 
@@ -107,20 +108,39 @@ document.addEventListener('DOMContentLoaded', () => {
     activeProcessIndex = index;
     highlightProcessStep(index);
 
-    if (!processDot || processPositions[index] == null) {
+    if (processPositions[index] == null) {
       return;
     }
+
+    const targetPosition = processPositions[index];
 
     if (immediate) {
-      const previousTransition = processDot.style.transition;
-      processDot.style.transition = 'none';
-      processDot.style.transform = `translate(${processPositions[index]}px, -50%) translateX(-50%)`;
-      processDot.offsetHeight;
-      processDot.style.transition = previousTransition;
+      if (processDot) {
+        const previousTransition = processDot.style.transition;
+        processDot.style.transition = 'none';
+        processDot.style.transform = `translate(${targetPosition}px, -50%) translateX(-50%)`;
+        processDot.offsetHeight;
+        processDot.style.transition = previousTransition;
+      }
+
+      if (processProgress) {
+        const previousTransition = processProgress.style.transition;
+        processProgress.style.transition = 'none';
+        processProgress.style.width = `${targetPosition}px`;
+        processProgress.offsetHeight;
+        processProgress.style.transition = previousTransition;
+      }
+
       return;
     }
 
-    processDot.style.transform = `translate(${processPositions[index]}px, -50%) translateX(-50%)`;
+    if (processDot) {
+      processDot.style.transform = `translate(${targetPosition}px, -50%) translateX(-50%)`;
+    }
+
+    if (processProgress) {
+      processProgress.style.width = `${targetPosition}px`;
+    }
   };
 
   const updateProcessPositions = () => {
@@ -159,22 +179,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     queueProcessTimer(() => {
-      if (!processRunning || !processDot) {
+      if (!processRunning || (!processDot && !processProgress)) {
         return;
       }
 
       const nextIndex = (activeProcessIndex + 1) % processItems.length;
 
       clearProcessStepHighlight();
-      processDot.classList.add('process__step-dot--moving');
-      processDot.style.transform = `translate(${processPositions[nextIndex]}px, -50%) translateX(-50%)`;
+      if (processDot) {
+        processDot.classList.add('process__step-dot--moving');
+        processDot.style.transform = `translate(${processPositions[nextIndex]}px, -50%) translateX(-50%)`;
+      }
+
+      if (processProgress) {
+        processProgress.style.width = `${processPositions[nextIndex]}px`;
+      }
 
       queueProcessTimer(() => {
-        if (!processRunning || !processDot) {
+        if (!processRunning || (!processDot && !processProgress)) {
           return;
         }
 
-        processDot.classList.remove('process__step-dot--moving');
+        if (processDot) {
+          processDot.classList.remove('process__step-dot--moving');
+        }
         setActiveProcessStep(nextIndex, true);
         scheduleNextProcessStep(holdDuration);
       }, moveDuration);
