@@ -25,7 +25,6 @@
         <a href="#services" class="header__link">услуги</a>
         <a href="#process" class="header__link">процесс</a>
         <a href="#about" class="header__link">о нас</a>
-        <a href="#contact" class="header__link">контакты</a>
       </nav>
       <a href="#contact" class="header__cta">СВЯЗАТЬСЯ</a>
       <button class="header__burger" id="burger" aria-label="Меню">
@@ -124,7 +123,8 @@
         </article>
         <article class="process__step">
           <h4 class="process__step-title">ВНЕДРЕНИЕ</h4>
-          <p class="process__step-text">Бесшовный запуск<br>в эксплуатацию,<br>обучение персонала<br>и технический надзор.
+          <p class="process__step-text">Бесшовный запуск<br>в эксплуатацию,<br>обучение персонала<br>и технический
+            надзор.
           </p>
         </article>
       </div>
@@ -148,8 +148,9 @@
       </div>
       <div class="about__shape">
         <svg viewBox="0 0 487 812" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect class="about__shape-stem" width="99.8283" height="812" fill="#1C1C1E" />
-          <line class="about__shape-diagonal" x1="152" y1="465" x2="409" y2="904" stroke="#1C1C1E" stroke-width="110" stroke-linecap="square"></line>
+          <rect class="about__shape-stem" width="99.8283" height="1000" fill="#1C1C1E" />
+          <line class="about__shape-diagonal" x1="152" y1="495" x2="409" y2="934" stroke="#1C1C1E" stroke-width="110"
+            stroke-linecap="square"></line>
         </svg>
       </div>
     </div>
@@ -163,19 +164,22 @@
         <p class="contact__subtitle">Оставьте заявку, и наши ведущие специалисты свяжутся с вами для проведения
           первичного анализа.</p>
       </div>
-      <div class="contact__form">
-        <div class="contact__field">
-          <span class="contact__label">ВАШЕ ИМЯ</span>
-          <div class="contact__line"></div>
-        </div>
-        <div class="contact__field">
-          <span class="contact__label">НОМЕР ТЕЛЕФОНА</span>
-          <div class="contact__line"></div>
-        </div>
+      <form class="contact__form" id="contact-form" novalidate>
+        <label class="contact__field" for="contact-name">
+          <!-- <span class="contact__label"></span> -->
+          <input class="contact__input" id="contact-name" name="name" type="text" autocomplete="name"
+            placeholder="ВАШЕ ИМЯ" required>
+        </label>
+        <label class="contact__field" for="contact-phone">
+          <!-- <span class="contact__label">НОМЕР ТЕЛЕФОНА</span> -->
+          <input class="contact__input" id="contact-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"
+            placeholder="НОМЕР ТЕЛЕФОНА" maxlength="18" required>
+        </label>
         <p class="contact__disclaimer">нажимая кнопку "оставить заявку", вы соглашаетесь<br>с политикой
           конфиденциальности</p>
+        <p class="contact__message" id="contact-message" aria-live="polite"></p>
         <button type="submit" class="contact__submit">оставить заявку</button>
-      </div>
+      </form>
     </div>
   </section>
 

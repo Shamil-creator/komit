@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+      } else {
+        entry.target.classList.remove('visible');
       }
     });
   }, observerOptions);
@@ -260,6 +261,203 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (typeof mediaQuery.addListener === 'function') {
         mediaQuery.addListener(handleMediaChange);
       }
+    });
+  }
+
+  // Contact form
+  const contactForm = document.getElementById('contact-form');
+
+  if (contactForm) {
+    const contactName = contactForm.querySelector('#contact-name');
+    const contactPhone = contactForm.querySelector('#contact-phone');
+    const contactMessage = contactForm.querySelector('#contact-message');
+
+    const setContactFieldError = (field, hasError) => {
+      const fieldWrapper = field ? field.closest('.contact__field') : null;
+      if (!fieldWrapper) {
+        return;
+      }
+
+      fieldWrapper.classList.toggle('contact__field--error', hasError);
+      field.setAttribute('aria-invalid', hasError ? 'true' : 'false');
+    };
+
+    const setContactMessage = (message, type) => {
+      if (!contactMessage) {
+        return;
+      }
+
+      contactMessage.textContent = message;
+      contactMessage.classList.remove('contact__message--error', 'contact__message--success');
+
+      if (type) {
+        contactMessage.classList.add(`contact__message--${type}`);
+      }
+    };
+
+    const clearContactErrors = () => {
+      [contactName, contactPhone].forEach(field => {
+        if (!field) {
+          return;
+        }
+
+        setContactFieldError(field, false);
+      });
+    };
+
+    const getPhoneDigits = (value) => value.replace(/\D/g, '');
+
+    const normalizePhoneDigits = (value) => {
+      let digits = getPhoneDigits(value);
+
+      if (!digits.length) {
+        return '';
+      }
+
+      if (digits[0] === '8') {
+        digits = `7${digits.slice(1)}`;
+      } else if (digits[0] !== '7') {
+        digits = `7${digits}`;
+      }
+
+      return digits.slice(0, 11);
+    };
+
+    const formatPhoneValue = (value) => {
+      const digits = normalizePhoneDigits(value);
+
+      if (!digits) {
+        return '';
+      }
+
+      const localDigits = digits.slice(1);
+      let formatted = '+7';
+
+      if (localDigits.length > 0) {
+        formatted += ` (${localDigits.slice(0, 3)}`;
+      }
+
+      if (localDigits.length >= 3) {
+        formatted += ')';
+      }
+
+      if (localDigits.length > 3) {
+        formatted += ` ${localDigits.slice(3, 6)}`;
+      }
+
+      if (localDigits.length > 6) {
+        formatted += `-${localDigits.slice(6, 8)}`;
+      }
+
+      if (localDigits.length > 8) {
+        formatted += `-${localDigits.slice(8, 10)}`;
+      }
+
+      return formatted;
+    };
+
+    [contactName, contactPhone].forEach(field => {
+      if (!field) {
+        return;
+      }
+
+      field.addEventListener('input', () => {
+        if (field === contactPhone) {
+          field.value = formatPhoneValue(field.value);
+        }
+
+        setContactFieldError(field, false);
+
+        if (contactMessage && contactMessage.textContent) {
+          setContactMessage('', null);
+        }
+      });
+    });
+
+    if (contactPhone) {
+      contactPhone.addEventListener('keydown', (event) => {
+        if (event.key !== 'Backspace') {
+          return;
+        }
+
+        const selectionStart = contactPhone.selectionStart ?? contactPhone.value.length;
+        const selectionEnd = contactPhone.selectionEnd ?? contactPhone.value.length;
+
+        if (selectionStart !== selectionEnd || selectionStart !== contactPhone.value.length) {
+          return;
+        }
+
+        const phoneDigits = normalizePhoneDigits(contactPhone.value);
+        const localDigits = phoneDigits.slice(1);
+
+        if (!phoneDigits) {
+          return;
+        }
+
+        event.preventDefault();
+
+        if (!localDigits.length) {
+          contactPhone.value = '';
+          return;
+        }
+
+        const nextLocalDigits = localDigits.slice(0, -1);
+        contactPhone.value = nextLocalDigits ? formatPhoneValue(nextLocalDigits) : '+7';
+        const caretPosition = contactPhone.value.length;
+        contactPhone.setSelectionRange(caretPosition, caretPosition);
+      });
+
+      contactPhone.addEventListener('focus', () => {
+        if (!contactPhone.value.trim()) {
+          contactPhone.value = '+7';
+        }
+      });
+
+      contactPhone.addEventListener('blur', () => {
+        const phoneDigits = normalizePhoneDigits(contactPhone.value);
+
+        if (phoneDigits.length <= 1) {
+          contactPhone.value = '';
+          return;
+        }
+
+        contactPhone.value = formatPhoneValue(contactPhone.value);
+      });
+    }
+
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      clearContactErrors();
+
+      const nameValue = contactName ? contactName.value.trim() : '';
+      const phoneValue = contactPhone ? contactPhone.value.trim() : '';
+      const phoneDigits = normalizePhoneDigits(phoneValue);
+
+      if (nameValue.length < 2) {
+        setContactFieldError(contactName, true);
+        setContactMessage('Введите имя, чтобы мы понимали, как к вам обратиться.', 'error');
+        contactName.focus();
+        return;
+      }
+
+      if (phoneDigits.length < 11) {
+        setContactFieldError(contactPhone, true);
+        setContactMessage('Введите корректный номер телефона.', 'error');
+        contactPhone.focus();
+        return;
+      }
+
+      const savedLeads = JSON.parse(window.localStorage.getItem('komit-contact-requests') || '[]');
+      savedLeads.push({
+        name: nameValue,
+        phone: phoneValue,
+        createdAt: new Date().toISOString()
+      });
+      window.localStorage.setItem('komit-contact-requests', JSON.stringify(savedLeads));
+
+      contactForm.reset();
+      setContactMessage('Заявка сохранена в браузере. Для отправки менеджеру позже можно подключить backend.', 'success');
     });
   }
 });

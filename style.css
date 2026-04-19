@@ -10,7 +10,7 @@
 :root {
   --bg-light: #F5F5F5;
   --bg-dark: #1C1C1E;
-  --bg-navy: #000E7F;
+  --bg-navy: #F5F5F5;
   --orange: #FF6A00;
   --white: #FFFFFF;
   --black: #000000;
@@ -64,9 +64,10 @@ img {
   margin: 0 auto;
   padding: 0 var(--side-padding);
   height: 92px;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
+  column-gap: 40px;
 }
 
 .header__logo {
@@ -96,7 +97,11 @@ img {
 
 .header__nav {
   display: flex;
-  gap: 48px;
+  justify-self: center;
+  align-items: center;
+  width: min(440px, 100%);
+  justify-content: space-between;
+  gap: 24px;
 }
 
 .header__link {
@@ -147,6 +152,8 @@ img {
   background: var(--bg-light);
   overflow: hidden;
   position: relative;
+  padding-top: 150px;
+  margin-bottom: 40px;
 }
 
 .hero__inner {
@@ -240,7 +247,11 @@ img {
 .services__inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 52px var(--side-padding) 60px;
+  padding: 0 80px 250px;
+}
+
+.services .section-label {
+  margin-bottom: 170px;
 }
 
 .services__grid {
@@ -252,7 +263,7 @@ img {
 }
 
 .services__cell {
-  min-height: 208px;
+  min-height: 180px;
   padding: 48px 42px;
   display: flex;
   align-items: center;
@@ -309,8 +320,8 @@ img {
 .mission__inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 60px var(--side-padding);
-  min-height: 700px;
+  padding: 90px var(--side-padding);
+  min-height: 820px;
   display: flex;
   gap: 40px;
   align-items: stretch;
@@ -392,8 +403,12 @@ img {
 .process__inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 56px var(--side-padding) 80px;
+  padding: 70px var(--side-padding) 128px;
   position: relative;
+}
+
+.process .section-label {
+  margin-bottom: 150px;
 }
 
 .process__steps {
@@ -402,6 +417,7 @@ img {
   grid-template-columns: repeat(4, 1fr);
   gap: 0;
   padding-top: 40px;
+  padding-bottom: 200px;
   position: relative;
 }
 
@@ -482,11 +498,11 @@ img {
 .about__inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 52px var(--side-padding) 80px;
+  padding: 72px var(--side-padding) 120px;
   display: flex;
   align-items: flex-start;
   position: relative;
-  min-height: 700px;
+  min-height: 810px;
 }
 
 .about__content {
@@ -557,8 +573,8 @@ img {
 
 .about__shape-diagonal {
   transform-box: view-box;
-  transform-origin: 152px 465px;
-  transform: rotate(-6deg);
+  transform-origin: 152px 495px;
+  transform: rotate(-9deg);
 }
 
 /* Orange circle is now on .process::after above */
@@ -605,7 +621,8 @@ img {
 }
 
 .contact__field {
-  margin-bottom: 0;
+  display: block;
+  margin-bottom: 20px;
 }
 
 .contact__label {
@@ -618,10 +635,33 @@ img {
   letter-spacing: 1px;
 }
 
-.contact__line {
+.contact__input {
   width: 100%;
-  height: 1px;
-  background: var(--white);
+  padding: 0 0 14px;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  background: transparent;
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact__input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.contact__input:focus {
+  outline: none;
+  border-bottom-color: var(--orange);
+  box-shadow: 0 1px 0 0 var(--orange);
+}
+
+.contact__field--error .contact__input {
+  border-bottom-color: var(--orange);
+  box-shadow: 0 1px 0 0 var(--orange);
 }
 
 .contact__disclaimer {
@@ -631,6 +671,23 @@ img {
   color: rgba(255, 255, 255, 0.4);
   line-height: 1.4;
   margin-bottom: 24px;
+}
+
+.contact__message {
+  min-height: 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.contact__message--error {
+  color: var(--orange);
+}
+
+.contact__message--success {
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .contact__submit {
@@ -649,6 +706,11 @@ img {
 
 .contact__submit:hover {
   opacity: 0.85;
+}
+
+.contact__submit:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
 }
 
 /* ===== FOOTER ===== */
@@ -830,6 +892,9 @@ img {
   /* Header mobile */
   .header__inner {
     height: 72px;
+    grid-template-columns: auto auto;
+    column-gap: 16px;
+    justify-content: space-between;
   }
 
   .header__nav {
