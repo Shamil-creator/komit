@@ -173,8 +173,9 @@
           <input class="contact__input" id="contact-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"
             placeholder="НОМЕР ТЕЛЕФОНА" maxlength="18" required>
         </label>
-        <p class="contact__disclaimer">нажимая кнопку "оставить заявку", вы соглашаетесь<br><span
-            class="contact__disclaimer-accent">с политикой конфиденциальности</span></p>
+        <p class="contact__disclaimer">нажимая кнопку "оставить заявку", вы соглашаетесь<br><a
+            class="contact__disclaimer-accent" href="./Политика%20конф.pdf" target="_blank"
+            rel="noopener noreferrer">с политикой конфиденциальности</a></p>
         <p class="contact__message" id="contact-message" aria-live="polite"></p>
         <button type="submit" class="contact__submit">оставить заявку</button>
       </form>
@@ -191,14 +192,29 @@
       </div>
       <div class="footer__right">
         <h4 class="footer__heading">КОНТАКТЫ</h4>
-        <a href="#">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
-        <a href="#">ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ</a>
+        <a href="./Политика%20конф.pdf" id="privacy-policy" target="_blank"
+          rel="noopener noreferrer">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+        <a href="./Пользовательское%20соглашение.pdf" target="_blank"
+          rel="noopener noreferrer">ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ</a>
       </div>
     </div>
     <div class="footer__bottom">
       <p>&copy; 2026 КОМИТ. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</p>
     </div>
   </footer>
+
+  <div class="cookie-banner cookie-banner--hidden" id="cookie-banner" aria-live="polite" aria-hidden="true">
+    <button class="cookie-banner__close" id="cookie-close" type="button" aria-label="Закрыть уведомление о cookies">
+      ×
+    </button>
+    <div class="cookie-banner__content">
+      <p class="cookie-banner__title">Cookies</p>
+      <p class="cookie-banner__text">Этот веб-сайт использует файлы cookie, чтобы помочь вам лучше и удобнее
+        просматривать веб-сайт. <a href="./cookie.pdf" class="cookie-banner__link" target="_blank"
+          rel="noopener noreferrer">Подробнее...</a></p>
+    </div>
+    <button class="cookie-banner__button" id="cookie-accept" type="button">Принять</button>
+  </div>
 
   <script src="script.js"></script>
 </body>

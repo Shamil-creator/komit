@@ -488,4 +488,54 @@ document.addEventListener('DOMContentLoaded', () => {
       setContactMessage('Заявка сохранена в браузере. Для отправки менеджеру позже можно подключить backend.', 'success');
     });
   }
+
+  // Cookie banner
+  const cookieBanner = document.getElementById('cookie-banner');
+  const cookieAcceptButton = document.getElementById('cookie-accept');
+  const cookieCloseButton = document.getElementById('cookie-close');
+  const cookieConsentKey = 'komit-cookie-consent';
+
+  if (cookieBanner) {
+    const showCookieBanner = () => {
+      cookieBanner.classList.remove('cookie-banner--hidden');
+      cookieBanner.setAttribute('aria-hidden', 'false');
+    };
+
+    const hideCookieBanner = () => {
+      cookieBanner.classList.add('cookie-banner--hidden');
+      cookieBanner.setAttribute('aria-hidden', 'true');
+    };
+
+    let hasCookieConsent = false;
+
+    try {
+      hasCookieConsent = window.localStorage.getItem(cookieConsentKey) === 'accepted';
+    } catch (error) {
+      hasCookieConsent = false;
+    }
+
+    if (hasCookieConsent) {
+      hideCookieBanner();
+    } else {
+      showCookieBanner();
+    }
+
+    const handleCookieDismiss = () => {
+      try {
+        window.localStorage.setItem(cookieConsentKey, 'accepted');
+      } catch (error) {
+        // Ignore storage errors and just close the banner visually.
+      }
+
+      hideCookieBanner();
+    };
+
+    if (cookieAcceptButton) {
+      cookieAcceptButton.addEventListener('click', handleCookieDismiss);
+    }
+
+    if (cookieCloseButton) {
+      cookieCloseButton.addEventListener('click', handleCookieDismiss);
+    }
+  }
 });
