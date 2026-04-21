@@ -1087,6 +1087,10 @@ img {
     gap: 48px;
   }
 
+  .contact__left {
+    margin-left: 0;
+  }
+
   .contact__form {
     max-width: 100%;
     padding-top: 0;

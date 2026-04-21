@@ -11,3 +11,9 @@ __pycache__/
 *.log
 *.md
 правки.txt
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+!**/.env.example

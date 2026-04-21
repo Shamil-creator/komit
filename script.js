@@ -384,6 +384,74 @@ document.addEventListener('DOMContentLoaded', () => {
       return formatted;
     };
 
+    const formatNormalizedPhone = (phoneDigits) => {
+      const localDigits = phoneDigits.slice(1);
+      return `+7 (${localDigits.slice(0, 3)}) ${localDigits.slice(3, 6)}-${localDigits.slice(6, 8)}-${localDigits.slice(8, 10)}`;
+    };
+
+    const sendLeadRequest = async ({ name, phone, source }) => {
+      let response;
+
+      try {
+        response = await window.fetch('/api/leads', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name,
+            phone,
+            source
+          })
+        });
+      } catch (error) {
+        return {
+          ok: false,
+          message: 'Сервис временно недоступен. Попробуйте отправить заявку чуть позже.'
+        };
+      }
+
+      let responseBody = null;
+
+      try {
+        responseBody = await response.json();
+      } catch (error) {
+        responseBody = null;
+      }
+
+      if (response.ok && responseBody && responseBody.ok === true) {
+        return {
+          ok: true
+        };
+      }
+
+      if (response.status === 400) {
+        return {
+          ok: false,
+          message: 'Проверьте имя и номер телефона и попробуйте снова.'
+        };
+      }
+
+      if (response.status === 429) {
+        return {
+          ok: false,
+          message: 'Слишком много попыток. Попробуйте снова через несколько минут.'
+        };
+      }
+
+      if (response.status === 502) {
+        return {
+          ok: false,
+          message: 'Сервис заявок временно недоступен. Попробуйте отправить заявку позже.'
+        };
+      }
+
+      return {
+        ok: false,
+        message: 'Не удалось отправить заявку. Попробуйте еще раз.'
+      };
+    };
+
     [contactName, contactPhone].forEach(field => {
       if (!field) {
         return;
@@ -453,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    contactForm.addEventListener('submit', (event) => {
+    contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       clearContactErrors();
@@ -476,16 +544,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const savedLeads = JSON.parse(window.localStorage.getItem('komit-contact-requests') || '[]');
-      savedLeads.push({
-        name: nameValue,
-        phone: phoneValue,
-        createdAt: new Date().toISOString()
-      });
-      window.localStorage.setItem('komit-contact-requests', JSON.stringify(savedLeads));
+      const submitButton = contactForm.querySelector('.contact__submit');
+      if (submitButton) {
+        submitButton.disabled = true;
+      }
+      contactForm.setAttribute('aria-busy', 'true');
 
-      contactForm.reset();
-      setContactMessage('Заявка сохранена в браузере. Для отправки менеджеру позже можно подключить backend.', 'success');
+      const leadPayload = {
+        name: nameValue,
+        phone: formatNormalizedPhone(phoneDigits),
+        source: 'website'
+      };
+
+      const leadResult = await sendLeadRequest(leadPayload);
+
+      if (leadResult.ok) {
+        contactForm.reset();
+        setContactMessage('Заявка отправлена в Telegram. Мы свяжемся с вами в ближайшее время.', 'success');
+      } else {
+        setContactMessage(leadResult.message, 'error');
+      }
+
+      contactForm.removeAttribute('aria-busy');
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
     });
   }
 
