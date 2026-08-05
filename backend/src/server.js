@@ -9,6 +9,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const {
+  HOST = '127.0.0.1',
   PORT = '3001',
   TELEGRAM_BOT_TOKEN,
   TELEGRAM_CHAT_ID,
@@ -288,6 +289,6 @@ app.use((error, request, response, next) => {
   });
 });
 
-app.listen(Number(PORT), () => {
-  console.log(`[startup] backend is running on port ${PORT}`);
+app.listen(Number(PORT), HOST, () => {
+  console.log(`[startup] backend is running on ${HOST}:${PORT}`);
 });
